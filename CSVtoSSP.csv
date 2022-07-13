@@ -1,17 +1,17 @@
 MAF3.0,MAF3.0,MAF3.0,Memsig,unit,Factor,Offset,Theodata,errrange,0锛歎psend 1锛欴ownsend,0 Untest 1 Test,Senddata,Senddata,Senddata,Senddata
 UltrasonicUpaReport,uss_upa_distance.sonar[0] ,每个区域最近的障碍物的距离fls,sonar[0],cm,0.01,2,Factor * Senddata + Offset,0,0,1,10,4,11,14
 UltrasonicParkslotReport,uss_parkslot_result[0].meta.timestamp_us,车位时间戳(0-9左侧),park_timestamp[0],ms,1000,0,Factor * Senddata + Offset,0,0,1,1.66E+12,1.66E+12,1.66E+12,1.66E+12
-UltrasonicParkslotReport,uss_parkslot_result[0].parkslot_id,对应车位是否找到,park_slot_found[0],NA,NA,NA,x,0,0,1,2,2,,2
-UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj1_x,车位第1点x坐标,parkslot_obj1_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,0,0,,0
-UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj1_y,车位第1点y坐标,parkslot_obj1_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,20,20,,20
-UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj4_x,车位第4点x坐标,parkslot_obj4_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,40,40,,40
-UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj4_y ,车位第4点y坐标,parkslot_obj4_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,60,60,,60
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_start_X,障碍物0起始坐标x轴,obstacle_start_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,0,0,,0
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_start_Y,障碍物0起始坐标y轴,obstacle_start_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,20,20,,
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_end_X,障碍物0结束坐标x轴,obstacle_end_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,40,40,,
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_end_Y,障碍物0结束坐标y轴,obstacle_end_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,60,60,,
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_probability,障碍物0概率,obstacle_probability[0],NA,NA,NA,"FLOOR(L13/16.6,1)*16.6",5,0,1,20,20,,
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_type,障碍物0类型,obstacle_type[0],NA,1,0,Factor * Senddata + Offset,0,0,1,1,1,,
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_height,障碍物0高度,obstacle_height[0],NA,1,0,Factor * Senddata + Offset,0,0,1,2,2,,
-UltrasonicObstacleReport,uss_obstacle_data[0].obj_height_probability,障碍物0高度概率,obstacle_height_probability[0],NA,NA,NA,"FLOOR(L16/16.6,1)*16.6",5,0,1,40,40,,
-UltrasonicObstacleReport,uss_obstacle_data[0].meta.timestamp_us,障碍物0时间戳,obstacle_timestamp[0],ms,1000,0,Factor * Senddata + Offset,0,0,1,1.66E+12,1.66E+12,,
+UltrasonicParkslotReport,uss_parkslot_result[0].parkslot_id,对应车位是否找到,park_slot_found[0],NA,NA,NA,Senddata,0,0,1,2,3,4,5
+UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj1_x,车位第1点x坐标,parkslot_obj1_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,0,0,0,0
+UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj1_y,车位第1点y坐标,parkslot_obj1_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,20,20,20,20
+UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj4_x,车位第4点x坐标,parkslot_obj4_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,40,40,40,40
+UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj4_y ,车位第4点y坐标,parkslot_obj4_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,60,60,60,60
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_start_X,障碍物0起始坐标x轴,obstacle_start_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,0,0,0,0
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_start_Y,障碍物0起始坐标y轴,obstacle_start_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,20,20,20,20
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_end_X,障碍物0结束坐标x轴,obstacle_end_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,40,40,40,40
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_end_Y,障碍物0结束坐标y轴,obstacle_end_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,60,60,60,60
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_probability,障碍物0概率,obstacle_probability[0],NA,NA,NA,"Floor(L13/16.6,1)*16.6",5,0,1,20,30,40,50
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_type,障碍物0类型,obstacle_type[0],NA,1,0,Factor * Senddata + Offset,0,0,1,1,1,1,1
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_height,障碍物0高度,obstacle_height[0],NA,1,0,Factor * Senddata + Offset,0,0,1,2,2,2,2
+UltrasonicObstacleReport,uss_obstacle_data[0].obj_height_probability,障碍物0高度概率,obstacle_height_probability[0],NA,NA,NA,"FLOOR(L16/16.6,1)*16.6",5,0,1,40,50,60,70
+UltrasonicObstacleReport,uss_obstacle_data[0].meta.timestamp_us,障碍物0时间戳,obstacle_timestamp[0],ms,1000,0,Factor * Senddata + Offset,0,0,1,1.66E+12,1.66E+12,1.66E+12,1.66E+12

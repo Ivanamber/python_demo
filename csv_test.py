@@ -6,28 +6,33 @@ import sys
 import time
 import re
 
-def excel_trans(str):
-    if(re.match("FLOOR", str)):
+def excel_trans(str, senddata, factor, offset):
+    if(re.match(r"FLOOR", str, re.I)):
         ans = re.findall(r"\d+\.?\d*",str)
-        print(ans)
-        end1 = float(ans[1])
-        end2 = float(ans[2])
-        end3 = float(ans[3])
-        return end1, end2, end3
+        num1 = float(ans[1])
+        num2 = float(ans[2])
+        num3 = float(ans[3])
+        return FLOOR(senddata, num1, num2, num3)
+
+    elif(re.match(r"factor \S senddata \S offset", str, re.I)):
+        return fac_offset(senddata, offset, factor)
+    elif(re.match(r"senddata\Z", str, re.I)):
+        return stright_pass(senddata)
     else:
-        return 0, 0, 0
-
-
-
-
-
+        return 0
 
 #解析excel中FLOOR函数
 
 def FLOOR( a, b, c, d):
     tmp = a / b
     ans = (tmp - (tmp % c)) * d
-    return ans
+    return round(ans, 3)
+
+def fac_offset(senddata, offset, factor):
+    return senddata * factor + offset
+
+def stright_pass(senddata):
+    return senddata
 
 
 def main():
@@ -72,12 +77,12 @@ def main():
             DataBase.SignalArry[i].enable = FrameData['0 Untest 1 Test'][i]
             DataBase.SignalArry[i].value_send = Senddata
             # print(FrameData['Theodata'][i])
-            end1, end2, end3 = excel_trans(FrameData['Theodata'][i])
-            print(end1, end2, end3)
+            DataBase.SignalArry[i].value_want = excel_trans(FrameData['Theodata'][i], Senddata, Factor, Offset)
+
             # DataBase.SignalArry[i].value_want = eval(FrameData['Theodata'][i])
             DataBase.SignalArry[i].errrange = FrameData['errrange'][i]
             DataBase.SignalArry[i].name = bytes(FrameData['Memsig'][i], encoding='utf-8')
-            # print("value_want:",DataBase.SignalArry[i].value_want)
+            print(j, "value_want:",DataBase.SignalArry[i].value_want)
             # print(j,DataBase.count, DataBase.SignalArry[i].name, DataBase.SignalArry[i].enable,
             #       DataBase.SignalArry[i].value_send, "value_want:",DataBase.SignalArry[i].value_want, DataBase.SignalArry[i].errrange)
 
@@ -85,7 +90,7 @@ def main():
         # target.c_fg_SSPApp_SetDateToDB(byref(DataBase))
 
         # 延时
-        time.sleep(10)
+        time.sleep(1)
         # print(DataBase)
         # print(DataBase.count)
         # print(DataBase.SignalArry[i].enable)
