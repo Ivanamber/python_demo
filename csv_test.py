@@ -21,6 +21,13 @@ def excel_trans(str, senddata, factor, offset):
     else:
         return 0
 
+def trans_floor(str, senddata):
+    ans = re.findall(r"\d+\.?\d*", str)
+    num1 = float(ans[1])
+    num2 = float(ans[2])
+    num3 = float(ans[3])
+    return FLOOR(senddata, num1, num2, num3)
+
 #解析excel中FLOOR函数
 
 def FLOOR( a, b, c, d):
@@ -74,17 +81,22 @@ def main():
             Senddata = FrameData.iloc[i, 11 + j]
             Offset = FrameData['Offset'][i]
             DataBase.count = i
-            DataBase.SignalArry[i].enable = FrameData['0 Untest 1 Test'][i]
+            DataBase.SignalArry[i].enable = FrameData['0不测试 1测试'][i]
             DataBase.SignalArry[i].value_send = Senddata
+            str = FrameData['MAF获取理论值'][i];
             # print(FrameData['Theodata'][i])
-            DataBase.SignalArry[i].value_want = excel_trans(FrameData['Theodata'][i], Senddata, Factor, Offset)
+            # DataBase.SignalArry[i].value_want = excel_trans(FrameData['Theodata'][i], Senddata, Factor, Offset)
 
-            # DataBase.SignalArry[i].value_want = eval(FrameData['Theodata'][i])
-            DataBase.SignalArry[i].errrange = FrameData['errrange'][i]
-            DataBase.SignalArry[i].name = bytes(FrameData['Memsig'][i], encoding='utf-8')
-            print(j, "value_want:",DataBase.SignalArry[i].value_want)
-            # print(j,DataBase.count, DataBase.SignalArry[i].name, DataBase.SignalArry[i].enable,
-            #       DataBase.SignalArry[i].value_send, "value_want:",DataBase.SignalArry[i].value_want, DataBase.SignalArry[i].errrange)
+            if(re.match(r"FLOOR", str, re.I)):
+                DataBase.SignalArry[i].value_want = trans_floor(str, Senddata)
+            else:
+                DataBase.SignalArry[i].value_want = eval(FrameData['MAF获取理论值'][i])
+
+            DataBase.SignalArry[i].errrange = FrameData['允许误差%'][i]
+            DataBase.SignalArry[i].name = bytes(FrameData['共享内存内部信号'][i], encoding='utf-8')
+            # print(j, "value_want:",DataBase.SignalArry[i].value_want)
+            print(j,DataBase.count, DataBase.SignalArry[i].name, DataBase.SignalArry[i].enable,
+                  DataBase.SignalArry[i].value_send, "value_want:",DataBase.SignalArry[i].value_want, DataBase.SignalArry[i].errrange)
 
         # 调用C接口
         # target.c_fg_SSPApp_SetDateToDB(byref(DataBase))
