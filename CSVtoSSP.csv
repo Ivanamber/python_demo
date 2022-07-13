@@ -1,7 +1,7 @@
-MAF3.0,MAF3.0,MAF3.0,Memsig,unit,Factor,Offset,Theodata,errrange,0锛歎psend 1锛欴ownsend,0 Untest 1 Test,Senddata,Senddata,Senddata,Senddata
+MAF3.0信号,MAF3.0信号,MAF3.0信号,共享内存内部信号,单位,理论值factor,理论值offset,MAF获取理论值,允许误差%,0：上行 1：下行,0不测试 1测试,发送信号值,发送信号值,发送信号值,发送信号值
 UltrasonicUpaReport,uss_upa_distance.sonar[0] ,每个区域最近的障碍物的距离fls,sonar[0],cm,0.01,2,Factor * Senddata + Offset,0,0,1,10,4,11,14
 UltrasonicParkslotReport,uss_parkslot_result[0].meta.timestamp_us,车位时间戳(0-9左侧),park_timestamp[0],ms,1000,0,Factor * Senddata + Offset,0,0,1,1.66E+12,1.66E+12,1.66E+12,1.66E+12
-UltrasonicParkslotReport,uss_parkslot_result[0].parkslot_id,对应车位是否找到,park_slot_found[0],NA,NA,NA,Senddata,0,0,1,2,3,4,5
+UltrasonicParkslotReport,uss_parkslot_result[0].parkslot_id,对应车位是否找到,park_slot_found[0],NA,NA,NA,SenddataFFF,0,0,1,2,3,4,5
 UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj1_x,车位第1点x坐标,parkslot_obj1_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,0,0,0,0
 UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj1_y,车位第1点y坐标,parkslot_obj1_y[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,20,20,20,20
 UltrasonicParkslotReport,uss_parkslot_result[0].veh_obj4_x,车位第4点x坐标,parkslot_obj4_x[0],cm,0.01,0,Factor * Senddata + Offset,0,0,1,40,40,40,40
