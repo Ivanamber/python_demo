@@ -29,17 +29,16 @@ extern "C"
 {
 sem_t* sem;
 
-void Sem_open_SSP( char *name, int oflag,
-                       mode_t mode, unsigned int value)
+void Sem_open_SSP()
 {
-
+    static int oflag = 1;
     if(oflag == 1){
-
-        sem = sem_open(name, O_CREAT, 0666, value);
+        oflag = 0;
+        sem = sem_open("update_check", O_CREAT, 0666, 1);
     }
     else{
 
-        sem = sem_open(name, O_EXCL, 0666, value);
+        sem = sem_open("update_check", O_EXCL, 0666, 1);
 
     }
 

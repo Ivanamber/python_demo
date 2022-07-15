@@ -173,7 +173,7 @@ def database_init(len):
     DataBase = FathStruct_list()
     return DataBase
 
-def send_data(FrameData, DataBase):
+def send_data(FrameData, DataBase, target):
     # 遍历所有Senddata列
 
     for j in range(FrameData.shape[1] - COL):
@@ -195,22 +195,23 @@ def send_data(FrameData, DataBase):
             #       DataBase.SignalArry[i].value_send, "value_want:", DataBase.SignalArry[i].value_want,
             #       DataBase.SignalArry[i].errrange)
         # 调用C接口
-        # target.fg_SSPApp_SetDateToDB(byref(DataBase))
+        target.fg_SSPApp_SetDateToDB(byref(DataBase))
         print("num:", j, "send to shm")
-        update_check.release()
+
         # 延时
         time.sleep(1)
     return DataBase
 
 def main():
-    # target = cdll.LoadLibrary("libsspshm.so")
-    # target.fl_SSP_InitDB()  # 调用c中的初始化函数
-    update_check.release()
+    target = cdll.LoadLibrary("libsspshm.so")
+    target.fl_SSP_InitDB()  # 调用c中的初始化函数
+    target.Sem_open_SSP()
+    print("创建信号量")
     # FrameData = load_csv('CSVtoSSP.csv')
     FrameData = load_csv('CSVtoSSP_lianhuashan.csv')
     DataBase = database_init(FrameData.shape[0])
     #
-    Data = send_data(FrameData, DataBase)
+    Data = send_data(FrameData, DataBase, target)
 
     # print(FrameData['发送信号值'][60] * 1000 + 0)
 
@@ -230,5 +231,4 @@ def main():
 
 
 if __name__ == '__main__':
-    update_check = threading.Semaphore(value=0)
     main()

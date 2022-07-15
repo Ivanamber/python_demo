@@ -36,6 +36,6 @@ void Sem_open_SSP();
 
 void Sem_post_SSP();
 
-void Sem_unlink_SSP();
+void Sem_unlink_SSP(char *name);
 }
 #endif
