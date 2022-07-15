@@ -213,13 +213,11 @@ int main()
 {
     struct SHM_DB_ST DataBase;
     DataBase = *fg_SSPApp_GetDateFromDB();
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 20; i++){
 
         printf("get date %s\r\n",DataBase.SignalArry[i].name);
-        printf("get date %d\r\n",DataBase.SignalArry[i].enable);
         printf("get date %f\r\n",DataBase.SignalArry[i].value_send);
-        printf("get date %f\r\n",DataBase.SignalArry[i].value_rcv);
-        printf("get date %f\r\n",DataBase.SignalArry[i].errrange);
+        printf("get date %f\r\n",DataBase.SignalArry[i].value_want);
         //fg_SSPApp_RmDB();
         sleep(1);
         printf("num:", i, "\r\n");
