@@ -13,6 +13,9 @@ version:v1.0
 #include "SSP_sharedmem.hpp"
 #include <unistd.h>
 #include <pthread.h>
+#include <fcntl.h>           /* For O_* constants */
+#include <sys/stat.h>        /* For mode constants */
+#include <semaphore.h>
 using namespace std;
 /*-------------------------------------------------------*/
 unsigned char str_rt[10];
@@ -22,6 +25,37 @@ description: initialize shared memorary of DataBase
 input: none
 output:none
 *************************************************/
+extern "C"
+{
+sem_t* sem;
+
+void Sem_open_SSP( char *name, int oflag,
+                       mode_t mode, unsigned int value)
+{
+
+    if(oflag == 1){
+
+        sem = sem_open(name, O_CREAT, 0666, value);
+    }
+    else{
+
+        sem = sem_open(name, O_EXCL, 0666, value);
+
+    }
+
+}
+
+void Sem_post_SSP(){
+
+    sem_post(sem);
+}
+
+void Sem_unlink_SSP(char *name){
+
+      sem_unlink(name);
+}
+
+
 void fl_SSP_InitDB()
 {
     int shm_id;
@@ -193,21 +227,21 @@ void fg_SSPApp_RmDB()
     
 }    
 
-int main1()
-{
-    struct SHM_DB_ST DataBase;
-    fl_SSP_InitDB();
-    strcpy((char *)DataBase.SignalArry[1].name, "ESP"); 
-    DataBase.SignalArry[1].enable = 1;
-    DataBase.SignalArry[1].value_send = 49.01;
-    DataBase.SignalArry[1].value_rcv = 50.02;
-    DataBase.SignalArry[1].errrange = 0.1; 
-    fg_SSPApp_SetDateToDB(&DataBase);
-    printf("success! %s\r\n",DataBase.SignalArry[1].name);
-    //fg_SSPApp_RmDB();
-    // DataBase = *fg_SSPApp_GetDateFromDB();  
-    // printf("get date %s\r\n",DataBase.SignalArry[1].name);
-}
+//int main1()
+//{
+//    struct SHM_DB_ST DataBase;
+//    fl_SSP_InitDB();
+//    strcpy((char *)DataBase.SignalArry[1].name, "ESP");
+//    DataBase.SignalArry[1].enable = 1;
+//    DataBase.SignalArry[1].value_send = 49.01;
+//    DataBase.SignalArry[1].value_rcv = 50.02;
+//    DataBase.SignalArry[1].errrange = 0.1;
+//    fg_SSPApp_SetDateToDB(&DataBase);
+//    printf("success! %s\r\n",DataBase.SignalArry[1].name);
+//    //fg_SSPApp_RmDB();
+//    // DataBase = *fg_SSPApp_GetDateFromDB();
+//    // printf("get date %s\r\n",DataBase.SignalArry[1].name);
+//}
 
 int main()
 {
@@ -225,4 +259,6 @@ int main()
     sleep(8);
     printf("4\r\n");
     return 0;
+}
+
 }

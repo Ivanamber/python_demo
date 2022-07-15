@@ -4,7 +4,8 @@
 #include <string>
 #include <pthread.h>
 using namespace std;
-
+extern "C"
+{
 #define MAX_COUNT            		1000
 #define SHM_Signal_Size             sizeof(struct SIGNAL)
 #define SHM_DB_Size             	sizeof(struct SHM_DB_ST)
@@ -31,4 +32,10 @@ void fg_SSPApp_SetDateToDB(struct SHM_DB_ST* src);
 
 void fg_SSPApp_RmDB();
 
+void Sem_open_SSP();
+
+void Sem_post_SSP();
+
+void Sem_unlink_SSP();
+}
 #endif

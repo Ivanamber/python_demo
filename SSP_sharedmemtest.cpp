@@ -13,6 +13,9 @@ version:v1.0
 #include "SSP_sharedmem.hpp"
 #include <unistd.h>
 #include <pthread.h>
+#include <fcntl.h>           /* For O_* constants */
+#include <sys/stat.h>        /* For mode constants */
+#include <semaphore.h>
 using namespace std;
 /*-------------------------------------------------------*/
 unsigned char str_rt[10];
